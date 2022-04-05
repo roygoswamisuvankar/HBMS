@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    </head>
+    <body style="background-image: url('{% static "images/hotel.jpg" %}');">
+        <div>
+            <div class="contain">
+                <h1>Hotel Booking Management System</h1>
+                <div>
+                    <h2>Login into your System</h2>
+                </div>
+                <div>
+                    <button><a href="{% url 'admin' %}">Admin Login</a></button>
+                    <button><a href="#">Employee Login</a></button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

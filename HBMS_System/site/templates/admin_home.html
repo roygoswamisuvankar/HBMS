@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin - Home</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/admin_home.css' %}"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+    <body>
+        <!--common section-->
+        <div class="header">
+            <center>
+                <h3 style="font-style: italic;">Hotel Booking Management System</h3>
+                <h4>Admin Dashboard</h4>
+                <p><h5>Welcome Back {{ current_user.name }}!</h5></p>
+            </center>
+          </div>
+          
+          <div class="">
+            <ul>
+                <li><a class="active" href="{% url 'admin_home' %}">Add Employee</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li style="float: right;"><a href="{% url 'adminlogout' %}" style="background-color: red; color: white;">Logout</a></li>
+             </ul>
+          </div>
+          <!--end of common sections-->
+
+          <!-- main section-->
+          <div class="w3-row-padding" style="padding-top: 5%;">
+              <div class="w3-third">
+                  <h5>Add Employee Records!</h5>                  
+                  <form method="post" action="#">
+                    {% csrf_token %}
+                      <table id="admin-form">
+                          <tr>
+                              <td><b>Name</b></td>
+                              <td><b>:</b></td>
+                              <td><input type="text" name="name" placeholder="Enter Full Name"/></td>                                 
+                              <td><b>Email</b></td>
+                              <td><b>:</b></td>
+                              <td><input type="email" name="email" placeholder="Enter Email"/></td>
+                          </tr>
+                          <tr>
+                              <td><b>Contact</b></td>
+                              <td><b>:</b></td>
+                              <td><input type="number" name="phone" placeholder="Enter Contact Number"/></td>
+                              <td><b>Gender</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <select name="gender">
+                                      <option value="Male">Male</option>
+                                      <option value="Female">Female</option>
+                                      <option value="Others">Others</option>
+                                  </select>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td><b>Department</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <select name="dept">
+                                      <option value="IT">IT</option>                                      
+                                      <option value="Developer">Developer</option>
+                                      <option value="Manager">Manager</option>
+                                      <option value="General Manager">General Manager</option>
+                                      <option value="House Kepper">House Kepper</option>
+                                      <option value="Security">Security</option>
+                                  </select>
+                              </td>
+                              <td>
+                                  <b>Address</b>                           
+                              </td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <textarea name="address"></textarea>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td><b>Password</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="password" name="password" placeholder="Set Password"/>
+                              </td>
+                              <td><b>Confirm Password</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="password" name="cpassword" placeholder="Confirm Password"/>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td colspan="3">
+                                  <input type="submit" value="Save" name="save"/>
+                              </td>
+                              <td colspan="3">
+                                  <input type="reset" value="Clear" name="clear"/>
+                              </td>
+                          </tr>
+                      </table>
+                  </form>
+              </div>
+          </div>
+    </body>
+</html>

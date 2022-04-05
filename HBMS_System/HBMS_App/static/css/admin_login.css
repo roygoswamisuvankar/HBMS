@@ -1,0 +1,46 @@
+.contain{
+    width: 100vw;
+    height: 100vh;
+}
+h1{
+    color: lightcoral;
+    font-style: italic;
+}
+label{
+    color: red;
+}
+.login_form{
+    width: 30%;
+    height: 40%;
+    border: 1px solid burlywood;
+    position: relative;
+    left: 34%;
+    padding: 10px 20px;
+    font-size: large;
+    box-shadow: 5px 10px #888888;
+}
+#form_contain td{
+    padding: 8px 10px;
+    font-size: large;
+}
+#form_contain{
+    position: relative;
+    left: 25%;
+    top: 15%;
+}
+input[type=text], input[type=password]{
+    padding: 8px 10px;
+    font-size: medium;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid lightgray;
+}
+input[type=submit]{
+    padding: 8px 10px;
+    border : none;
+    color: white;
+    background-color: lightseagreen;
+    border-radius: 5px;
+    width: 50%;
+    font-weight: bold;
+}

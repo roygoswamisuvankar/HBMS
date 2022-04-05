@@ -1,0 +1,35 @@
+*{
+    overflow: hidden;
+}
+h1{
+    color : white;
+    font-style: italic;
+    padding-top: 10%;
+}
+h2{
+    color: wheat;
+    font-style: italic;
+}
+body{
+    background-repeat: no-repeat;
+    background-position: top;
+    background-attachment: fixed;
+    background-size: 1600px 900px;
+}
+.contain{
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+}
+button{
+    padding: 10px 14px;
+    color: white;
+    background-color: lightseagreen;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
