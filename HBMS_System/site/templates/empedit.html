@@ -48,16 +48,7 @@
                         $("#phone").focus();
                     }
                 });
-                //password validation
-                $("#pass").change(function(){
-                    var pass = $("#pass").val();
-                    if(pass.length < 5){
-                        alert("Password contains at least 5 characters");
-                        $("#pass").val('');
-                        $("#pass").focus();
-                    }
-                });
-
+                
             });
 
         </script>
@@ -74,7 +65,7 @@
           
           <div class="">
             <ul>
-                <li><a class="active" href="{% url 'admin_home' %}">Add Employee</a></li>
+                <li><a href="{% url 'admin_home' %}">Add Employee</a></li>
                 <li><a href="{% url 'show_emp' %}">Show Employee List</a></li>
                 <li><a href="#">Find Employee Records</a></li>
                 <li><a href="#contact">Salary Generate</a></li>
@@ -87,78 +78,75 @@
           <div class="w3-row-padding" style="padding-top: 5%;">
               <div class="">
                   <center>
-                        <h5 style="font-size: 20px;">Add Employee Records!</h5>
+                        <h5 style="font-size: 20px;">Edit Employee Records!</h5>
                         <h6 style="color : red; font-size: 20px;">{{ sms }}</h6>
                         <h6 style="color : green; font-size: 20px;">{{ sms1 }}</h6>
-                    </center>                  
-                  <form method="post" action="addemployees">
+                    </center> 
+                    {% if edit %}                                     
+                  <form method="post" action="update_emp">
                     {% csrf_token %}
                       <table id="admin-form">
                           <tr>
+                              <input type="hidden" name="id" value="{{ edit.id }}" required/>
+                          </tr>
+                          <tr>
                               <td><b>Name</b></td>
                               <td><b>:</b></td>
-                              <td><input type="text" name="name" placeholder="Enter Full Name" id="name" required/></td>                                 
+                              <td><input type="text" name="name" placeholder="Enter Full Name" id="name" value="{{ edit.name }}" required/></td>                                 
                               <td><b>Email</b></td>
                               <td><b>:</b></td>
-                              <td><input type="email" name="email" placeholder="Enter Email" id="email" required/></td>
+                              <td><input type="email" name="email" placeholder="Enter Email" id="email" value="{{ edit.email }}" required/></td>
                           </tr>
                           <tr>
                               <td><b>Contact</b></td>
                               <td><b>:</b></td>
-                              <td><input type="number" name="phone" placeholder="Enter Contact Number" id="phone" required/></td>
+                              <td><input type="number" name="phone" placeholder="Enter Contact Number" value="{{ edit.phone }}" id="phone" required/></td>
                               <td><b>Gender</b></td>
                               <td><b>:</b></td>
                               <td>
-                                  <select name="gender">
-                                      <option value="Male">Male</option>
-                                      <option value="Female">Female</option>
-                                      <option value="Others">Others</option>
-                                  </select>
+                                  <input type="text" value="{{ edit.gender }}" name="gender" placeholder="Enter Gender" required/>
                               </td>
                           </tr>
                           <tr>
                               <td><b>Department</b></td>
                               <td><b>:</b></td>
                               <td>
-                                  <select name="dept">
-                                      <option value="IT">IT</option>                                      
-                                      <option value="Developer">Developer</option>
-                                      <option value="Manager">Manager</option>
-                                      <option value="General Manager">General Manager</option>
-                                      <option value="House Kepper">House Kepper</option>
-                                      <option value="Security">Security</option>
-                                  </select>
+                                  <input type="text" name="department" value="{{ edit.department }}" required/>
                               </td>
                               <td>
                                   <b>Address</b>                           
                               </td>
                               <td><b>:</b></td>
                               <td>
-                                  <textarea name="address" required></textarea>
+                                  <textarea name="address" required>{{ edit.address }}</textarea>
                               </td>
-                          </tr>
-                          <tr>
-                              <td><b>Password</b></td>
-                              <td><b>:</b></td>
-                              <td>
-                                  <input type="password" name="password" placeholder="Set Password" id="pass" required/>
-                              </td>
-                              <td><b>Confirm Password</b></td>
-                              <td><b>:</b></td>
-                              <td>
-                                  <input type="password" name="cpassword" placeholder="Confirm Password" required/>
-                              </td>
-                          </tr>
+                          </tr>                        
                           <tr>
                               <td colspan="3">
-                                  <input type="submit" value="Save" name="save"/>
+                                  <input type="submit" value="Update" name="save"/>
                               </td>
                               <td colspan="3">
-                                  <input type="reset" value="Clear" name="clear"/>
+                                  <button><a href="{% url 'show_emp' %}">Cancel</a></button>
                               </td>
                           </tr>
                       </table>
-                  </form>                  
+                  </form>  
+                  {% endif %}  
+                  <style>
+                      button{
+                          padding: 8px 10px;
+                          color : white;
+                          cursor: pointer;
+                          background-color : red;
+                          text-decoration: none;
+                          border : none;
+                          width : 100%;
+                      }
+                      button a{
+                          text-decoration: none;
+                          font-weight: bold;
+                      }
+                  </style>              
               </div>
           </div>
     </body>

@@ -1,0 +1,53 @@
+#admin-form td{
+    padding: 8px 10px;
+    font-size: medium;
+}
+#admin-form{
+    position: relative;
+    left: 23%;
+}
+input[type="text"], input[type="password"], input[type="number"], input[type=email]{
+    border : 1px solid lightgray;
+    outline: none;
+    border-radius: 5px;
+    padding: 10px 14px;
+}
+select, textarea{
+    border : 1px solid lightgray;
+    outline: none;
+    border-radius: 5px;
+    padding: 10px 14px;
+}
+h5{
+    font-style: italic;
+}
+input[type=submit]{
+    padding: 8px 10px;
+    color : white;
+    background-color: green;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    width : 100%;
+}
+input[type=reset]{
+    padding: 8px 10px;
+    color : white;
+    background-color: rgb(203, 10, 10);
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    width : 100%;
+}
+
+#show_emp th {
+    padding: 8px 10px;
+    color : white;
+    background-color : rgb(105, 102, 102);
+}
+#show_emp td{
+    padding: 10px 14px;
+}
+#show_emp{
+    border-collapse: collapse;
+}

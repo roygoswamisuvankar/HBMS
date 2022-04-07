@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin - Home</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/admin_home.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/add_emp_form.css' %}"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+    <body>
+        <!--common section-->
+        <div class="header">
+            <center>
+                <h3 style="font-style: italic;">Hotel Booking Management System</h3>
+                <h4>Admin Dashboard</h4>
+                <p><h5>Welcome Back {{ current_user.name }}!</h5></p>
+            </center>
+          </div>
+          
+          <div class="">
+            <ul>
+                <li><a href="{% url 'admin_home' %}">Add Employee</a></li>
+                <li><a class="active" href="{% url 'show_emp' %}">Show Employee List</a></li>
+                <li><a href="#">Find Employee Records</a></li>
+                <li><a href="#contact">Salary Generate</a></li>
+                <li style="float: right;"><a href="{% url 'adminlogout' %}" style="background-color: red; color: white;">Logout</a></li>
+             </ul>
+          </div>
+          <!--end of common sections-->
+
+          <!-- main section-->
+          <div class="w3-row-padding" style="padding-top: 5%;">
+              <div class="">
+                  <label style="color : green; font-size: 20px;">{{ sms }}</label>
+                  <label style="color : red; font-size: 20px;">{{ sms1 }}</label>
+                  {% if emp %}
+                  <h4 style="font-style : italic;">Employee List!</h4>
+                  <table border="1" id="show_emp">
+                      <tr>
+                          <th>Employee ID</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Phone Number</th>
+                          <th>Gender</th>
+                          <th>Department</th>
+                          <th>Address</th>
+                          <th colspan="2">Operations</th>
+                      </tr>
+                      {% for i in emp %}
+                      <tr>
+                          <td>{{ i.id }}</td>
+                          <td>{{ i.name }}</td>
+                          <td>{{ i.email }}</td>
+                          <td>{{ i.phone }}</td>
+                          <td>{{ i.gender }}</td>
+                          <td>{{ i.department }}</td>
+                          <td>{{ i.address }}</td>
+                          <td><button style="background-color : green;"><a href="emp_edit/{{ i.id }}">Edit</a></button></td>
+                          <td><button style="background-color : red;"><a href="emp_delete/{{ i.id }}" onclick="return confirm('Are you sure you want to delete?')">Delete</a></button></td>
+                      </tr>
+                      {% endfor %}
+                  </table>
+                  {% else %}
+                  <label style="color : red; font-weight: bold; font-size: 20px;">No Employees to show!</label>
+                  {% endif %}
+                  <style>
+                      button {
+                          width : 8px 10px;
+                          color : white;
+                          border : none;
+                          cursor: pointer;
+                      }
+                      button a{
+                          text-decoration: none;
+                          font-weight: bold;
+                      }
+                  </style>
+              </div>
+          </div>
+    </body>
+</html>
+    
