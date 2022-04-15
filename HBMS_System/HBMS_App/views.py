@@ -175,5 +175,44 @@ def update_emp(request):
             }
         return render(request, 'showemp.html', param)
     return redirect('admin')      
+#---------------employee sections ------------------------------
+#employee login path
+def employeelogin(request):
+    return render(request, 'employee.html')
 
+#employee login -> controll sessions
+def employee_home(request):
+    if 'check_emp' in request.session:
+        current_emp = request.session['check_emp']
+        data = employee1.objects.get(phone = current_emp)
+        param = {
+            'current_emp' : data,
+        }
+        return render(request, 'emp_home.html', param)
+    else:
+        return redirect('index')
+    return redirect('index')
 
+def employee_login(request):
+    if request.method == 'POST':
+        phone = request.POST.get('phone')
+        pwd = request.POST.get('password')
+        # hashing technique
+        hash = hashlib.md5(pwd.encode())
+        pass1 = hash.hexdigest()
+        check_user = employee1.objects.filter(phone = phone, password = pass1)
+        if check_user:
+            request.session['check_emp'] = phone
+            return redirect('employee_home')
+        else:
+            sms = 'Invalid user id or password!'
+            return render(request, 'employee.html', { 'sms' : sms })
+        return render('index')
+
+#employee logout
+def emplogout(request):
+    try:
+        del request.session['check_emp']
+    except:
+        return redirect('index')
+    return redirect('index')

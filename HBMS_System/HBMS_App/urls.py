@@ -25,4 +25,12 @@ urlpatterns = [
     path('emp_edit/<int:id>', views.emp_edit, name='emp_edit'),
     #admin -> update employee records, 
     path('emp_edit/update_emp', views.update_emp, name='update_emp'),
+    #----------------------Employee sections---------------------------------------------
+    #employee login path,
+    path('employeelogin', views.employeelogin, name='employeelogin'),
+    #employee login function
+    path('employee_login', views.employee_login, name='employee_login'),
+    path('employee_home', views.employee_home, name='employee_home'),
+    #logout path
+    path('emplogout', views.emplogout, name='emplogout'),
 ]

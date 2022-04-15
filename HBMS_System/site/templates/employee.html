@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Employee - Login</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/admin_login.css' %}"/>
+    </head>
+    <body>
+        <div>
+            <div class="contain">
+                <div style="width: 100vw; text-align: center;">
+                    <h1>HBMS - Employee Login</h1>
+                </div>
+                <div style="width: 100vw; text-align: center;">
+                    <label style="font-size: 20px;">{{ sms }}</label>
+                </div>
+                <div class="login_form">                                        
+                    <form action="employee_login" method="post">
+                        {% csrf_token %}
+                        <table id="form_contain">
+                            <tr>
+                                <td><b>Login ID</b></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" name="phone" placeholder="Enter Login ID" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Password</b></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="password" name="password" placeholder="Enter Password" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="submit" value="Login" name="login"/>
+                                    <button><a href="{% url 'index' %}">Cancel</a></button>
+                                </td>                                
+                            </tr>
+                        </table>
+                    </form>
+                    <style>
+                        button{
+                                padding: 8px 10px;
+                                border: none;
+                                color: white;
+                                background-color: red;
+                                text-decoration: none;
+                                border-radius: 5px;
+                                
+                            }
+                            button a{
+                                text-decoration: none;
+                                color: white;
+                                font-weight: bold;
+                                
+                            }
+                    </style>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
