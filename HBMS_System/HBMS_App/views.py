@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.db import connection
-from.models import admin1, employee1
+from.models import admin1, employee1, rooms1, checkin_checkout
 import hashlib
 from django.db.models import Q
 
@@ -216,3 +216,61 @@ def emplogout(request):
     except:
         return redirect('index')
     return redirect('index')
+
+#add rooms,
+def addrooms(request):
+    if 'check_emp' in request.session:
+        current_emp = request.session['check_emp']
+        data = employee1.objects.get(phone = current_emp)
+        param = {
+            'current_emp' : data,
+        }
+        return render(request, 'addrooms.html',param)
+    return redirect('employee_login')
+
+#save data to database,
+def addrooms1(request):
+    if 'check_emp' in request.session:
+        current_emp = request.session['check_emp']
+        data = employee1.objects.get(phone = current_emp)
+        if request.method == 'POST':
+            room_num = request.POST.get('room_num')
+            category = request.POST.get('category')
+            beds = request.POST.get('beds')
+            ac = request.POST.get('ac')
+            flr = request.POST.get('flr')
+            price = request.POST.get('price')
+            service = request.POST.get('service')
+            save_data = rooms1(room_num=room_num, category=category, beds= beds, ac=ac, flr=flr, price=price, service=service)
+            save_data.save()
+            sms = 'Saved data successfully!'
+            param = {
+                'current_emp' : data,
+                'sms' : sms,
+            }
+            return render(request, 'addrooms.html', param)
+        return render(request, 'addrooms.html')
+    return redirect('employee_login')
+
+#checkin.html page,
+def check_in(request):
+    if 'check_emp' in request.session:
+        current_emp = request.session['check_emp']
+        data = employee1.objects.get(phone = current_emp)
+        param = {
+            'current_emp' : data,
+        }
+        return render(request, 'checkin.html', param)
+    return redirect('employee_login')
+
+#show available rooms,
+def show_av(request):
+    if 'check_emp' in request.session:
+        current_emp = request.session['check_emp']
+        data = employee1.objects.get(phone = current_emp)
+
+        #fetch hotel rooms data,
+        rooms_data = rooms1.objects.all()
+        #fetch book status,
+        show_av_room = checkin_checkout.objects.all()
+        

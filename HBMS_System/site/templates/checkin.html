@@ -21,8 +21,8 @@
           
           <div class="">
             <ul>
-                <li><a class="active" href="{% url 'employee_home' %}">Search Rooms</a></li>
-                <li><a href="{% url 'check_in' %}">Check-IN</a></li>
+                <li><a href="{% url 'employee_home' %}">Search Rooms</a></li>
+                <li><a class="active" href="{% url 'check_in' %}">Check-IN</a></li>
                 <li><a href="#">Check-Out</a></li>
                 <li><a href="{% url 'addrooms' %}">Add Rooms</a></li>
                 <li style="float: right;"><a href="{% url 'emplogout' %}" style="background-color: red; color: white;">Logout</a></li>
@@ -33,30 +33,13 @@
           <!-- main section-->
           <div class="w3-row-padding" style="padding-top: 5%;">
               <div class="">
-                  <form method="post" action="show_av">
-                    {% csrf_token %}
-                      <table>
+                  <form>
+                      <table border="1">
                           <tr>
-                              <td><b>From</b></td>
-                              <td><b>:</b></td>
-                              <td>
-                                  <input type="date" name="from1"/>
-                              </td>
-                              <td><b>To</b></td>
-                              <td><b>:</b></td>
-                              <td>
-                                  <input type="date" name="to1"/>
-                              </td>
-                              <td>
-                                  <input type="submit" value="Search" />
-                              </td>
+                              <td></td>
                           </tr>
                       </table>
                   </form>
-                  {% for i in show %}
-                  {{ i.id }}
-                  {{ i.room_num }}
-                  {% endfor %}
               </div>
           </div>
     </body>

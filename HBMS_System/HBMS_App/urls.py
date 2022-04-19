@@ -33,4 +33,12 @@ urlpatterns = [
     path('employee_home', views.employee_home, name='employee_home'),
     #logout path
     path('emplogout', views.emplogout, name='emplogout'),
+    #add rooms function
+    path('addrooms', views.addrooms, name='addrooms'),
+    #save data to database,
+    path('addrooms1', views.addrooms1, name='addrooms1'),
+    #checkin.html page,
+    path('check_in', views.check_in, name='check_in'),
+    #show available rooms date wise,
+    path('show_av', views.show_av, name='show_av'),
 ]

@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Employee - Home</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/admin_home.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/add_emp_form.css' %}"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+    <body>
+        <!--common section-->
+        <div class="header">
+            <center>
+                <h3 style="font-style: italic;">Hotel Booking Management System</h3>
+                <h4>Employee Dashboard</h4>
+                <p><h5>Welcome Back {{ current_emp.name }}!</h5></p>
+            </center>
+          </div>
+          
+          <div class="">
+            <ul>
+                <li><a href="{% url 'employee_home' %}">Search Rooms</a></li>
+                <li><a href="{% url 'check_in' %}">Check-IN</a></li>
+                <li><a href="#">Check-Out</a></li>
+                <li><a class="active" href="{% url 'addrooms' %}">Add Rooms</a></li>
+                <li style="float: right;"><a href="{% url 'emplogout' %}" style="background-color: red; color: white;">Logout</a></li>
+             </ul>
+          </div>
+          <!--end of common sections-->
+
+          <!-- main section-->
+          <div class="w3-row-padding" style="padding-top: 5%;">
+              <div class="">
+                  <label style="color : green;">{{ sms }}</label>
+                  <form action="addrooms1" method="post">
+                    {% csrf_token %}
+                      <table id="room">
+                            <tr>
+                                <td><b>Room Number</b></td>
+                                <td><b>:</b></td>
+                                <td>
+                                    <input type="number" name="room_num" placeholder="Enter Room Number" required/>
+                                </td>
+                                <td><b>Category</b></td>
+                                <td><b>:</b></td>
+                                <td>
+                                    <select name="category">
+                                        <option value="5 Stars">5 Stars</option>
+                                        <option value="3 Stars">3 Stars</option>
+                                        <option value="General">General</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Beds</b></td>
+                                <td><b>:</b></td>
+                                <td>
+                                    <select name="beds">
+                                        <option value="Single Bed">Single</option>
+                                        <option value="Double">Double Bed</option>
+                                    </select>
+                                </td>
+                                <td><b>Available AC</b></td>
+                                <td><b>:</b></td>
+                                <td>
+                                    <select name="ac">
+                                        <option value="YES">Yes</option>
+                                        <option value="NO">No</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Floor</b></td>
+                                <td><b>:</b></td>
+                                <td>
+                                    <select name="flr">
+                                        <option value="1st Floor">1st Floor</option>
+                                        <option value="2nd Floor">2nd Floor</option>
+                                        <option value="3rd Floor">3rd Floor</option>
+                                        <option value="4th Floor">4 Floor</option>
+                                    </select>
+                                </td>
+                                <td><b>Price</b></td>
+                                <td><b>:</b></td>
+                                <td>
+                                    <input type="number" name="price" placeholder="Enter Price" required/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Room Service</b></td>
+                                <td><b>:</b></td>
+                                <td>
+                                    <select name="service">
+                                        <option value="YES">Yes</option>
+                                        <option value="NO">No</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <input type="submit" value="Save"/>
+                                </td>
+                                <td colspan="3">
+                                    <input type="reset" value="Reset"/>
+                                </td>
+                            </tr>
+                      </table>
+                  </form>
+                  <style>
+                      #room td{
+                          padding : 8px 10px;
+                      }
+                  </style>
+              </div>
+          </div>
+    </body>
+</html>
+    
