@@ -40,23 +40,65 @@
                               <td><b>From</b></td>
                               <td><b>:</b></td>
                               <td>
-                                  <input type="date" name="from1"/>
+                                  <input type="date" name="from1" required/>
                               </td>
                               <td><b>To</b></td>
                               <td><b>:</b></td>
                               <td>
-                                  <input type="date" name="to1"/>
+                                  <input type="date" name="to1" required/>
                               </td>
                               <td>
-                                  <input type="submit" value="Search" />
+                                  <input type="submit" value="Search"/>
                               </td>
                           </tr>
                       </table>
                   </form>
-                  {% for i in show %}
-                  {{ i.id }}
-                  {{ i.room_num }}
-                  {% endfor %}
+              </div>
+              <div>
+                  {% if rooms %}
+                  <table>
+                      <tr>
+                          <td>Room ID</td>
+                          <td>Room No</td>
+                          <td>Room Category</td>
+                          <td>Room Price Pernight</td>
+                          <td>Book Rooms</td>
+                          <td>Status</td>
+                      </tr>
+                      {% for i in rooms %}
+                      <tr>
+                          <td>{{ i.id }}</td>
+                          <td>{{ i.room_num }}</td>
+                          <td>{{ i.category }}</td>
+                          <td>{{ i.price }}</td>
+                          <td><button><a href="roombooked/{{ i.id }}">Book Now</a></button></td>
+                          <td style="color : green;">{{ sms }}</td>
+                      </tr>
+                      {% endfor %}
+                  <!--</table>-->
+                  {% endif %}
+                  
+                  {% if un %}
+                 <!-- <table>
+                      <tr>
+                          <td>Room ID</td>
+                          <td>Room No</td>
+                          <td>Room Category</td>
+                          <td>Room Price Pernight</td>
+                          <td>Status</td>
+                      </tr>-->
+                      {% for i in un %}
+                      <tr>
+                          <td>{{ i.id }}</td>
+                          <td>{{ i.room_num }}</td>
+                          <td>{{ i.category }}</td>
+                          <td>{{ i.price }}</td>
+                          <td><button>Book Now</button></td>
+                          <td style="color : red;">{{ sms1 }}</td>
+                      </tr>
+                      {% endfor %}
+                  </table>
+                  {% endif %}
               </div>
           </div>
     </body>

@@ -4,6 +4,7 @@ from django.db import connection
 from.models import admin1, employee1, rooms1, checkin_checkout
 import hashlib
 from django.db.models import Q
+from datetime import date
 
 # Create your views here.
 #first page after server on
@@ -268,9 +269,70 @@ def show_av(request):
     if 'check_emp' in request.session:
         current_emp = request.session['check_emp']
         data = employee1.objects.get(phone = current_emp)
+        if request.method == 'POST':
+            start_date = request.POST.get('from1')
+            end_date = request.POST.get('to1')
+            find_room = checkin_checkout.objects.filter(Q(arrival = start_date) | Q(depurt = end_date))
+            #find_room = checkin_checkout.objects.filter(arrival = start_date,depurt = end_date)
+            
+            if find_room:
+                for i in find_room:
+                    id = i.room_id
+                    un = rooms1.objects.filter(id=id)
+                    show_rooms = rooms1.objects.filter(~Q(id = id))
+                    sms1 = 'Unavailable!'
+                    sms = 'Available!'
+                    param1 = {
+                        'sms1' : sms1,
+                        'current_emp' : data,
+                        'un' : un,
+                        'rooms' : show_rooms,
+                        'sms' : sms,
+                    }
+                    return render(request, 'emp_home.html', param1)
+            else:
+                show_rooms = rooms1.objects.all()
+                sms = 'Available!'
+                
+                param = {
+                    'current_emp': data,
+                    'sms' : sms,
+                    'rooms' : show_rooms,                    
+                }
+                return render(request, 'emp_home.html', param)
+            return render(request, 'emp_home.html')
+    return redirect('employee_home')
 
-        #fetch hotel rooms data,
-        rooms_data = rooms1.objects.all()
-        #fetch book status,
-        show_av_room = checkin_checkout.objects.all()
+#book rooms,
+def roombooked(request, id):
+    if 'check_emp' in request.session:
+        current_emp = request.session['check_emp']
+        data = employee1.objects.get(phone = current_emp)
+        rooms = rooms1.objects.get(id = id)
+        param = {
+            'current_emp' : data,
+            'rooms' : rooms,
+        }
+        return render(request, 'checkin.html', param)
+    return redirect('employee_login')
+
+
+#roombooked,
+def booked_room(request):
+    if 'check_emp' in request.session:
+        current_emp = request.session['check_emp']
+        data = employee1.objects.get(phone = current_emp)
+        if request.method == 'POST':
+            id = request.POST.get('id')
+            arival = request.POST.get('arival')
+            depurt = request.POST.get('depurt')
+            
+            sms = 'Saved'
+            param = {
+                'sms' : sms,
+            }
+            return render(request, 'checkin.html', param)
+        return render(request, 'checkin.html')
+    return redirect('employee_login')
+
         

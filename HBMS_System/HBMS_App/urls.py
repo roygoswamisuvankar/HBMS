@@ -41,4 +41,8 @@ urlpatterns = [
     path('check_in', views.check_in, name='check_in'),
     #show available rooms date wise,
     path('show_av', views.show_av, name='show_av'),
+    #book rooms,
+    path('roombooked/<int:id>', views.roombooked, name='roombooked'),
+    #room_booked,
+    path('roombooked/booked_room', views.booked_room, name='booked_room'),
 ]

@@ -33,13 +33,134 @@
           <!-- main section-->
           <div class="w3-row-padding" style="padding-top: 5%;">
               <div class="">
-                  <form>
-                      <table border="1">
+                  {{ sms }}
+                  <!--booking section after show available rooms-->
+                  {% if rooms %}
+                  <form action="booked_room" method="post">
+                    {% csrf_token %}
+                      <table id ="info" border="1">
                           <tr>
-                              <td></td>
+                            <th colspan="9">Room Informations</th>
                           </tr>
+                          <tr>
+                              <td><b>Room ID</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="number" value="{{ rooms.id }}" readonly/>
+                              </td>
+                              <td><b>Room Number</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="number" value="{{ rooms.room_num }}" readonly/>
+                              </td>
+                              <td><b>Category</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="text" value="{{ rooms.category }}" readonly />
+                              </td>
+                          </tr>
+                          <tr>
+                              <td><b>Beds info</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="text" value="{{ rooms.beds }}" readonly/>
+                              </td>
+                              <td><b>AC</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="text" value="{{ rooms.ac }}" readonly/>
+                              </td>
+                              <td><b>Floor Number</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="text" value="{{ rooms.flr }}" readonly/>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td><b>Price</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="text" value="{{ rooms.price }}" readonly/>
+                              </td>
+                              <td><b>Room Service</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="text" value="{{ rooms.service }}" readonly/>
+                              </td>
+                          </tr>
+                          <tr>
+                              <th colspan="9">Customer Information</th>
+                          </tr>
+                          <tr>
+                              <td><b>Customer Name</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="text" name="name" placeholder="Customer Name" required/>
+                              </td>
+                              <td><b>Date of Birth</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="date" name="dob" required style="outline: none;"/>
+                              </td>
+                              <td><b>Contact Number</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="text" name="phone" placeholder="Phone Number" required/>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td><b>Profession</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <select name="profe">
+                                      <option value="Salaried">Salaried</option>
+                                      <option value="Self-Employee">Self-Employee</option>
+                                      <option value="Student">Student</option>
+                                  </select>
+                              </td>
+                              <td><b>Marital Status</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <select name="marital">
+                                      <option value="Married">Married</option>
+                                      <option value="Un-Married">Un-Married</option>
+                                  </select>
+                              </td>
+                              <td><b>ID-Type</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <select name="id_prof">
+                                      <option value="Adhar-Card">Adhar-Card</option>
+                                      <option value="Pan-Card">Pan-Card</option>
+                                      <option value="Voter-Card">Voter-Card</option>
+                                  </select>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td><b>ID - Number</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="text" name="id_number" placeholder="ID Number" required/>
+                              </td>
+                              <td><b>Number of Adults</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="number" placeholder="Number of Adults" name="adult" required/>
+                              </td>
+                              <td><b>Number of Children</b></td>
+                              <td><b>:</b></td>
+                              <td>
+                                  <input type="number" placeholder="Number of Children" name="children" value="0" required/>
+                              </td>
+                          </tr>
+
                       </table>
                   </form>
+                  {% endif %}
+                <!-- end of booking section-->
+                
+                <!--check in section-->
+                <!--end of checkin section-->
               </div>
           </div>
     </body>
