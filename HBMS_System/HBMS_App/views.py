@@ -272,16 +272,19 @@ def show_av(request):
         if request.method == 'POST':
             start_date = request.POST.get('from1')
             end_date = request.POST.get('to1')
-            find_room = checkin_checkout.objects.filter(Q(arrival = start_date) | Q(depurt = end_date))
-            #find_room = checkin_checkout.objects.filter(arrival = start_date,depurt = end_date)
-            
+            #find_room = checkin_checkout.objects.filter(Q(arrival = start_date) | Q(depurt = end_date))
+            #find_room = checkin_checkout.objects.filter(arrival__gte = start_date, arrival__lte = end_date, depurt__gte = start_date, depurt__lte = end_date)
+            find_room = checkin_checkout.objects.filter(Q(arrival__range=(start_date, end_date)), Q(depurt__range=(start_date, end_date)))
+            #find_room = checkin_checkout.objects.raw(("select room_id where arrival between "'+start_date+'" and "'+end_date+'")
+
             if find_room:
-                for i in find_room:
+               for i in find_room:
                     id = i.room_id
+                    print(id)
                     un = rooms1.objects.filter(id=id)
                     show_rooms = rooms1.objects.filter(~Q(id = id))
                     sms1 = 'Unavailable!'
-                    sms = 'Available!'
+                    sms = 'Available!' 
                     param1 = {
                         'sms1' : sms1,
                         'current_emp' : data,
@@ -290,6 +293,7 @@ def show_av(request):
                         'sms' : sms,
                     }
                     return render(request, 'emp_home.html', param1)
+                
             else:
                 show_rooms = rooms1.objects.all()
                 sms = 'Available!'
@@ -309,9 +313,11 @@ def roombooked(request, id):
         current_emp = request.session['check_emp']
         data = employee1.objects.get(phone = current_emp)
         rooms = rooms1.objects.get(id = id)
+        today = date.today()
         param = {
             'current_emp' : data,
             'rooms' : rooms,
+            'today' : today,
         }
         return render(request, 'checkin.html', param)
     return redirect('employee_login')
@@ -323,16 +329,66 @@ def booked_room(request):
         current_emp = request.session['check_emp']
         data = employee1.objects.get(phone = current_emp)
         if request.method == 'POST':
-            id = request.POST.get('id')
-            arival = request.POST.get('arival')
+            room_id = request.POST.get('room_id')
+            room_num = request.POST.get('room_num')
+            category = request.POST.get('category')
+            beds = request.POST.get('beds')
+            ac = request.POST.get('ac')
+            flr = request.POST.get('flr')
+            price = request.POST.get('price')
+            service = request.POST.get('service')
+            name = request.POST.get('name')
+            dob = request.POST.get('dob')
+            phone = request.POST.get('phone')
+            profe = request.POST.get('profe')
+            marital = request.POST.get('marital')
+            id_prof = request.POST.get('id_prof')
+            id_number = request.POST.get('id_number')
+            adult = request.POST.get('adult')
+            children = request.POST.get('children')
+            email = request.POST.get('email')
+            gender = request.POST.get('gender')
+            arrival = request.POST.get('arrival')
             depurt = request.POST.get('depurt')
-            
-            sms = 'Saved'
+            name2 = request.POST.get('name2')
+            dob2 = request.POST.get('dob2')
+            phone2 = request.POST.get('phone2')
+            profe2 = request.POST.get('profe2')
+            marital2 = request.POST.get('marital2')
+            id_prof2 = request.POST.get('id_prof2')
+            id_number2 = request.POST.get('id_number2')
+            rel = request.POST.get('rel')
+            gender2 = request.POST.get('gender2')
+            tcost = request.POST.get('tcost')
+            pmod = request.POST.get('pmod')
+            checkby = request.POST.get('checkby')
+            emp_id = request.POST.get('emp_id')
+            checkin_date = request.POST.get('checkin_date')
+
+            save_data = checkin_checkout(room_id = room_id, room_num = room_num, category = category, beds = beds, ac = ac, flr = flr, price = price, service = service, name = name, dob = dob, phone = phone, profe = profe, material = marital, id_prof = id_prof, id_number = id_number, adult = adult, children = children, email = email, gender = gender, arrival = arrival, depurt = depurt, name2 = name2, dob2 = dob2, phone2 = phone2, profe2 = profe2, material2 = marital2, id_prof2 = id_prof2, id_number2 = id_number2, rel = rel, gender2 = gender2, tcost = tcost, pmod = pmod, checkby = checkby, emp_id = emp_id, checkin_date = checkin_date)
+
+            save_data.save()
+            sms = 'Room booked successfully!'
             param = {
                 'sms' : sms,
+                'current_emp' : data,
             }
             return render(request, 'checkin.html', param)
         return render(request, 'checkin.html')
     return redirect('employee_login')
 
-        
+#check-in customers,
+def checkin_cus(request):
+    if 'check_emp' in request.session:
+        current_emp = request.session['check_emp']
+        data = employee1.objects.get(phone = current_emp)
+        if request.method == 'POST':
+            date_c = request.POST.get('checkin')
+            cus_find = checkin_checkout.objects.filter(arrival = date_c)
+            param = {
+                'current_emp' : data,
+                'cus_find' : cus_find,
+            }
+            return render(request, 'checkin.html', param)
+        return render(request, 'checkin.html', { 'current_emp' : data })
+    return redirect('employee_login')

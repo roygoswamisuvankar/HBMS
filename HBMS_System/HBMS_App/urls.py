@@ -45,4 +45,6 @@ urlpatterns = [
     path('roombooked/<int:id>', views.roombooked, name='roombooked'),
     #room_booked,
     path('roombooked/booked_room', views.booked_room, name='booked_room'),
+    #check_in customers,
+    path('checkin_cus', views.checkin_cus, name='checkin_cus'),
 ]
